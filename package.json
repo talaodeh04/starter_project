@@ -9,6 +9,9 @@
     "build-dev": "webpack-dev-server --config webpack.dev.js",
     "build-css": "sass src/client/styles:src/client/styles"
   },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -31,10 +34,12 @@
   "devDependencies": {
     "@babel/core": "^7.26.9",
     "@babel/preset-env": "^7.26.9",
+    "babel-jest": "^29.7.0",
     "babel-loader": "^8.4.1",
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "node-sass": "^9.0.0",
     "sass": "^1.85.0",
     "sass-loader": "^14.2.1",

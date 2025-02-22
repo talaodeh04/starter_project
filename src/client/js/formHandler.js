@@ -1,9 +1,8 @@
-// Form handler function
-export async function handleSubmit(event) {
+export async function handleSubmit(event, url = null) {
     event.preventDefault(); // Prevent page reload
 
     // Get the URL input value
-    let urlInput = document.getElementById('urlInput').value;
+    let urlInput = url || document.getElementById('urlInput').value;
 
     if (!urlInput) {
         alert("Please enter a URL!");
@@ -12,14 +11,14 @@ export async function handleSubmit(event) {
 
     console.log("📤 Sending URL to server:", urlInput);
 
-    // Sending the URL to the server
-    const response = await fetch('http://localhost:8000/analyze-url', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: urlInput })
-    });
-
     try {
+        // Sending the URL to the server
+        const response = await fetch('http://localhost:8000/analyze-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: urlInput })
+        });
+
         const data = await response.json();
         console.log("📥 Server response:", data);
 
@@ -27,7 +26,6 @@ export async function handleSubmit(event) {
         if (data.error) {
             document.getElementById('results').innerText = `Error: ${data.error}`;
         } else {
-            // Display the analyzed results
             document.getElementById('results').innerText = `Analysis Result: ${JSON.stringify(data)}`;
         }
     } catch (error) {
@@ -35,4 +33,3 @@ export async function handleSubmit(event) {
         document.getElementById('results').innerText = "Failed to get analysis.";
     }
 }
-
